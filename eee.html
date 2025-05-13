@@ -624,26 +624,30 @@
     }
     form.contact-form button[type="submit"] {
       background: #bb00ff;
-      border: none;
-      padding: 14px 28px;
       color: #fff;
-      font-weight: 700;
-      font-size: 1.2rem;
+      border: none;
+      padding: 16px 40px;
       border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: 700;
       cursor: pointer;
-      user-select:none;
-      box-shadow: 0 0 30px #bb00ffcc;
-      transition: background-color 0.3s ease;
-      align-self: center;
-      width: fit-content;
+      margin-top: 20px;
+      transition: all 0.3s ease;
       text-transform: uppercase;
       letter-spacing: 0.1em;
+      box-shadow: 0 0 20px rgba(187, 0, 255, 0.4);
+      display: block;
+      width: auto;
+      margin: 30px auto 0;
     }
     form.contact-form button[type="submit"]:hover,
-    form.contact-form button[type="submit"]:focus-visible {
-      background: #ee00ff;
-      outline: none;
-      box-shadow: 0 0 45px #ee00ffcc;
+    form.contact-form button[type="submit"]:focus {
+      background: #d400ff;
+      transform: translateY(-2px);
+      box-shadow: 0 0 30px rgba(187, 0, 255, 0.6);
+    }
+    form.contact-form button[type="submit"]:active {
+      transform: translateY(1px);
     }
 
     /* Social media links */
@@ -725,7 +729,7 @@
     <section class="hero" id="home" tabindex="-1" aria-label="Hero section with 3D constellation background and tagline">
       <div class="hero-content">
         <h1>Crafting Stellar Digital Experiences</h1>
-        <a href="#contact" class="cta-button" role="button" tabindex="0">Let’s Grow Together</a>
+        <a href="#contact" class="cta-button" role="button" tabindex="0">Let's Grow Together</a>
       </div>
       <div id="threejs-container" aria-hidden="true"></div>
     </section>
@@ -773,7 +777,7 @@
             <div class="service-card-front">
               <h3>Reels</h3>
               <div class="service-price">Price: ₹7,500/-</div>
-              <p class="service-description">Boost your brand’s visibility with professionally edited and trend-savvy reels that grab attention.</p>
+              <p class="service-description">Boost your brand's visibility with professionally edited and trend-savvy reels that grab attention.</p>
               <div class="monthly-plan">Monthly Plan: ₹500 per reel</div>
               <div class="total-cost">Total for 15 reels/month: ₹7,500</div>
             </div>
@@ -849,7 +853,7 @@
             </div>
             <div class="founder-back" id="bhushan-desc" aria-hidden="true">
               <h3>About Bhushan</h3>
-              <p class="founder-bio">Bhushan is the tech genius behind CelestialPixel’s futuristic digital solutions and 3D innovations.</p>
+              <p class="founder-bio">Bhushan is the tech genius behind CelestialPixel's futuristic digital solutions and 3D innovations.</p>
               <div class="founder-skills" aria-label="Skills">
                 <span class="skill">WebGL</span><span class="skill">JavaScript</span><span class="skill">3D Design</span>
               </div>
@@ -864,7 +868,7 @@
     <section id="contact" tabindex="-1" aria-labelledby="contact-title" aria-describedby="contact-desc">
       <h2 id="contact-title">Contact Us</h2>
       <div class="contact-wrapper">
-        <form class="contact-form" novalidate aria-label="Contact form">
+        <form class="contact-form" action="https://formspree.io/f/mvgavaeg" method="POST" novalidate aria-label="Contact form">
           <label for="name">
             <input type="text" id="name" name="name" required placeholder=" " aria-required="true" aria-describedby="nameHelp" />
             <span class="label-text">Name</span>
@@ -877,4 +881,44 @@
           </label>
           <label for="message">
             <textarea id="message" name="message" placeholder=" " required aria-required="true" aria-describedby="msgHelp"></textarea>
-            <span class="label-text">Message</span
+            <span class="label-text">Message</span>
+            <span id="msgHelp" class="sr-only">Enter your message</span>
+          </label>
+          <button type="submit">Send Message</button>
+        </form>
+        <div class="social-links">
+          <!-- Add your social media links here -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Form submission handling
+    const form = document.querySelector('.contact-form');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          alert('Message sent successfully!');
+          form.reset();
+        } else {
+          throw new Error('Failed to send message');
+        }
+      } catch (error) {
+        alert('Failed to send message. Please try again later.');
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+</html>
